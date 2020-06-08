@@ -42,3 +42,12 @@
 * The shape of the body makes doesn't accurately display which descriptions had the highest percentages. For example, "Willing to Learn" looks like the biggest block, but the largest percentage is actualyl "People-Savvy".
 * The percentages are not in any kind of order. If they were in a order, the viewer might be able to more easily see which descriptions were the most or least popular.
 * The font size of the percentages is larger than then title of the visualization.
+
+## My Visualization Design
+
+I chose to create a new visualization for Viz 3. 
+
+* I removed the explantory statements from the visualization to keep the information provided consistent from Boomer description to description.
+* I decided to display the information in bars instead of a graphic of a body. I felt like the provided visualization made it seem like the percentages should add up to 100% since they were each being used to make up part of the body. Since the Baby Boomer who answered the survey could answer "agree" to multiple prompts, I though they should be separated out.
+* I made the bars reflect the actual percentages they represent. In the provided visualization, the body didn't reflect the percentages very well. Based on the shape of the torso, it seemed like the highest percentage of Baby Boomers agreed with "Willing to Learn", when the actual highest percentage agreed with "People-Savvy". Also, it seemed like the difference between "Creative" and "Leaders" was much larger than it actually is.
+* I placed the bars in order of highest to lowest percentage so that it would be easier for the viewer to pick up on what the most or least Baby Boomers agreed with.
