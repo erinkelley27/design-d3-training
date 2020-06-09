@@ -9,8 +9,16 @@
 
 ### Negatives
 
-* There are no other labels or headers for the bars in the graph.
+* The visualization is very busy. It's hard to focus on the what it's trying to tell the viewer. My eye has to jump around a lot to focus on comparing the individual products across strategies.
+* Having the key at the top adds too much to what's already going on.
 * There are two labels for the Y-axis, 'Product's Values' and 'Total of amount', which makes it difficult to know what is actually being measured.
+
+## My Visualization 
+
+* I changed this visualization to a stacked bar graph. I thought that the most important takeaway from the visualization would be the total number of products sold across strategies, so I added the "Total Product Sales" label to the Y-axis. This graph indicates that more clearly so that the viewer can see which strategy was the most or least successful.
+* By stacking the products according to color, the user can get a basic overview of which strategy worked best for each product. It's also easier to compare individual products across strategies at a glance because the eye can follow the colors horizontally.
+* I moved the key to the right side because it seemed like a more intuitive place for a reference.
+* A added a grid to background of the graph so that it was easier for the viewer to compare strategies that have total product sales values that are close.
 
 ## Viz 2
 
