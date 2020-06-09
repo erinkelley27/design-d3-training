@@ -38,6 +38,15 @@
 * It's unclear what the percentages next to the bars represent - the percentage does not correlate with the size of the block it seems to be representing.
 * Some of the blocks don't have percentages.
 
+## My Visualization
+
+I couldn't read the key in the provided visualization because it was super fuzzy. I tried to figure out what information was being displayed and decided to make the updated visualization about montly over-the-counter medication sales.
+
+* I changed the color scheme to make it easier to look at. The other color scheme was kind of jarring and made me want to stop looking at it.
+* There was a ton of data being displayed in the provided visualization, so I reduced the number of retailers being displayed from 17 to 4. I added a 5th category to the key that encompassed all other retailers. I thought that simplifying the amount of data presented would showcase the most popular retailers a little more clearly. Many of the retailers displayed in the original visualization had such small contributions to total sales, so I wanted to compile their impact on total sales into one category.
+* I added labels to the visualizatoin so that it was clearer what data/trends it was intended to represent.
+* I removed the values and percentages from within the graph. I wasn't sure what they were supposed to represent, but I think there could be some benefit to having some kind of value displayed within the visualization.
+
 ## Viz 3
 
 ### Positives
