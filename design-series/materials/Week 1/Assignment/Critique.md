@@ -13,7 +13,7 @@
 * Having the key at the top adds too much to what's already going on.
 * There are two labels for the Y-axis, 'Product's Values' and 'Total of amount', which makes it difficult to know what is actually being measured.
 
-## My Visualization 
+### My Visualization 
 
 * I changed this visualization to a stacked bar graph. I thought that the most important takeaway from the visualization would be the total number of products sold across strategies, so I added the "Total Product Sales" label to the Y-axis. This graph indicates that more clearly so that the viewer can see which strategy was the most or least successful.
 * By stacking the products according to color, the user can get a basic overview of which strategy worked best for each product. It's also easier to compare individual products across strategies at a glance because the eye can follow the colors horizontally.
@@ -38,7 +38,7 @@
 * It's unclear what the percentages next to the bars represent - the percentage does not correlate with the size of the block it seems to be representing.
 * Some of the blocks don't have percentages.
 
-## My Visualization
+### My Visualization
 
 I couldn't read the key in the provided visualization because it was super fuzzy. I tried to figure out what information was being displayed and decided to make the updated visualization about montly over-the-counter medication sales.
 
@@ -60,7 +60,7 @@ I couldn't read the key in the provided visualization because it was super fuzzy
 * The percentages are not in any kind of order. If they were in a order, the viewer might be able to more easily see which descriptions were the most or least popular.
 * The font size of the percentages is larger than then title of the visualization.
 
-## My Visualization 
+### My Visualization 
 
 * I removed the explantory statements from the visualization to keep the information provided consistent from Boomer description to description.
 * I decided to display the information in bars instead of a graphic of a body. I felt like the provided visualization made it seem like the percentages should add up to 100% since they were each being used to make up part of the body. Since the Baby Boomer who answered the survey could answer "agree" to multiple prompts, I though they should be separated out.
