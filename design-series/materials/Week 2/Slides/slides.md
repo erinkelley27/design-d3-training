@@ -36,7 +36,11 @@ Notes:
 ### Maximize the Data-Ink Ratio
 
 * *Above all else, show the data.* - Edward Tufte, 1983
+<<<<<<< HEAD
 * Reduce the amount of unecessary frills
+=======
+* Reduce the amount of unnecessary frills
+>>>>>>> upstream/master
 
 <img class="img" src="materials/Week 1/Slides/resources/data2ink.jpg" style="border:none">
 <div class="source">Source: https://datahero.com/blog/2017/06/06/4-data-design-principles/</div>
@@ -137,10 +141,16 @@ Notes:
 ### Accessibility
 
 * Color blindness
+<<<<<<< HEAD
 * Not just 508 compliance
 
 <img class="img" src="materials/Week 1/Slides/resources/Gradientsbad1.png" style="border:none">
 <div class="source">Source: http://www.dundas.com/support/blog/visualizing-for-the-color-blind</div>
+=======
+
+<img class="img" src="materials/Week 2/Slides/resources/COVID_heatmap.png" style="border:none; height:600px">
+<div class="source">Source: https://www.reddit.com/r/dataisbeautiful/comments/gz66yv/heat_map_of_new_confirmed_cases_by_country/</div>
+>>>>>>> upstream/master
 
 Notes:
 
@@ -148,7 +158,15 @@ Notes:
 
 ---
 
+<<<<<<< HEAD
 <img class="img" src="materials/Week 1/Slides/resources/evapotranspiration-map.jpg" style="border:none; width:70%">
+=======
+### Accessibility
+
+* Not just 508 compliance
+
+<img class="img" src="materials/Week 2/Slides/resources/evapotranspiration-map.jpg" style="border:none; width:70%">
+>>>>>>> upstream/master
 <div class="source">Source: https://eagereyes.org/basics/rainbow-color-map</div>
 
 Notes:
@@ -173,6 +191,10 @@ Notes:
 ### Good and Bad Data Viz Examples
 
 [r/dataisbeautiful](https://www.reddit.com/r/dataisbeautiful/)
+<<<<<<< HEAD
+=======
+
+>>>>>>> upstream/master
 [r/dataisugly](https://www.reddit.com/r/dataisugly/)
 
 ===
@@ -273,8 +295,11 @@ Notes:
 
 https://trends.google.com/trends/explore?date=all&q=%2Fm%2F018w8,%2Fm%2F018jz
 
+<<<<<<< HEAD
 https://demos.qlik.com/qliksense/OpioidCrisisAnalysis
 
+=======
+>>>>>>> upstream/master
 https://projects.fivethirtyeight.com/mortality-rates-united-states/
 
 ---
@@ -367,12 +392,19 @@ Notes:
 <img class="img" src="materials/Week 2/Slides/resources/trafficlights1.gif" style="width:80%">
 <div class="source">Source: http://blog.robbowley.net/2009/10/28/visualising-the-internal-quality-of-software-part-1/</div>
 
+<<<<<<< HEAD
 ===
 
 ## Hybrids
 
 ---
 
+=======
+---
+
+## Hybrids
+
+>>>>>>> upstream/master
 https://www.mathematica-mpr.com/dataviz/urbanization
 
 ===
@@ -397,10 +429,18 @@ Notes:
 
 ### Assignment 2
 
+<<<<<<< HEAD
 [Details](https://github.com/linusmarco/d3-training/blob/master/src/materials/Week%202/Assignment/Assignment%202.md)
+=======
+[Details](https://github.com/mathematica-mpr/design-d3-training/blob/development/design-series/materials/Week%202/Assignment/Assignment%202.md)
+>>>>>>> upstream/master
 
 ---
 
 ### Final Project
 
+<<<<<<< HEAD
 [Details](materials/Syllabus.html)
+=======
+[Details](https://github.com/mathematica-mpr/design-d3-training/blob/development/resources/Final%20Project.md)
+>>>>>>> upstream/master
