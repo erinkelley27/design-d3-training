@@ -11,7 +11,10 @@
 
 ### My Visualization 
 
-* 
+* I kept most of the information in this visualization but rearranged a few things to make highlight what I thought was most important.
+* I correlated the blue with in-season and the black with off-season web site traffic.
+* I labeled each bar.
+* I think there is probably a way to simplify this even more, but this is a start. 
 
 ## Viz 2: Bubbles
 
