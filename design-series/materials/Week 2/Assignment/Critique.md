@@ -25,4 +25,6 @@
 
 ### My Visualization 
 
-* 
+* I drastically simplified this visualization, which I think could be good if the user only wants to see life expectancy over time per country.
+* I think the original has more benefits since the user can decide what data and trends they want to see.
+* I made it a line graph in the case that a factor like population wasn't relevant.
