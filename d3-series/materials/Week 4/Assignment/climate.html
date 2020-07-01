@@ -106,9 +106,37 @@
                         .attr('width', function(d) {
                             return x(d.temp);
                         })
-                        .attr('fill', 'steelblue')
+                        .attr('fill', d => {
+                            if (d.year >= 1880 && d.year < 1890) {
+                                return 'red'
+                            } else if (d.year >= 1890 && d.year < 1900) {
+                                return 'orange'
+                            } else if (d.year >= 1900 && d.year < 1910) {
+                                return 'yellow'
+                            } else if (d.year >= 1910 && d.year < 1920) {
+                                return 'green'
+                            } else if (d.year >= 1920 && d.year < 1930) {
+                                return 'blue'
+                            } else if (d.year >= 1930 && d.year < 1940) {
+                                return 'purple'
+                            } else if (d.year >= 1940 && d.year < 1950) {
+                                return 'pink'
+                            } else if (d.year >= 1950 && d.year < 1960) {
+                                return 'teal'
+                            } else if (d.year >= 1960 && d.year < 1970) {
+                                return 'lemonchiffon'
+                            } else if (d.year >= 1970 && d.year < 1980) {
+                                return 'steelblue'
+                            } else if (d.year >= 1980 && d.year < 1990) {
+                                return 'lightblue'
+                            } else if (d.year >= 1990 && d.year < 2000) {
+                                return 'magenta'
+                            } else if (d.year >= 2000 && d.year < 2010) {
+                                return 'magenta'
+                            } 
+                        })
                         .attr('stroke', 'none');
-                    
+
                     g
                         .append('text')
                         .attr('class', 'x-axis-label')
