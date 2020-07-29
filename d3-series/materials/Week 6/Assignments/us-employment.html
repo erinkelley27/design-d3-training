@@ -93,20 +93,20 @@
 
           var opacityScale = d3.scaleLinear().domain([0, 100]).range([0, 1]);
 
-          var mercatorProj = d3
+          var mercatorProj2012 = d3
             .geoMercator()
             .scale(150)
             .rotate([80, 0])
             .center([0, 50])
             .translate([innerWidth / 2, innerHeight / 2]);
 
-          var geoPath = d3.geoPath().projection(mercatorProj);
+          var geoPath2012 = d3.geoPath().projection(mercatorProj2012);
 
           g.selectAll("path")
             .data(geojson.features)
             .enter()
             .append("path")
-            .attr("d", geoPath)
+            .attr("d", geoPath2012)
             .style("fill", function (d) {
               if (d.properties.county) {
                 return "blue";
@@ -121,6 +121,15 @@
                 return opacityScale(d.properties.county.years[2012]);
               }
             });
+
+          g.append("text")
+            .attr("class", "title")
+            .attr("x", innerWidth / 2)
+            .attr("y", -20)
+            .attr("text-anchor", "middle")
+            .attr("dominant-baseline", "baseline")
+            .style("font-size", 24)
+            .text("2012");
         }
       }
       buildChart("#map-holder");
