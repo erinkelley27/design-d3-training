@@ -75,7 +75,7 @@ function buildChart(id) {
 
     var geoPath = d3.geoPath().projection(mercatorProj);
 
-    var opacityScale = d3.scaleLinear().domain([0, 800]).range([0, 1]);
+    var opacityScale = d3.scaleLinear().domain([0, 1992]).range([0.2, 1]);
 
     var tooltip = d3.select("body").append("div").attr("class", "tooltip").attr("opacity", 0);
 
