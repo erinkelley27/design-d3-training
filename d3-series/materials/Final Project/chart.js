@@ -143,97 +143,110 @@ function buildChart(id) {
       .append("g")
       .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    var medalTypes = Object.keys(d.properties.medals);
-    var medalValues = Object.values(d.properties.medals);
-    var medalCount = medalTypes.map((t, i) => {
-      medal = {
-        type: t,
-        count: +medalValues[i],
-      };
-      return medal;
-    });
+    if (d.properties.medals) {
+      var medalTypes = Object.keys(d.properties.medals);
+      var medalValues = Object.values(d.properties.medals);
+      var medalCount = medalTypes.map((t, i) => {
+        medal = {
+          type: t,
+          count: +medalValues[i],
+        };
+        return medal;
+      });
+      medalCount.shift();
 
-    var x = d3
-      .scaleBand()
-      .domain(
-        medalCount.map(function (mc) {
-          return mc.type;
+      var x = d3
+        .scaleBand()
+        .domain(
+          medalCount.map(function (mc) {
+            return mc.type;
+          })
+        )
+        .range([0, innerWidth - 350])
+        .padding(0.2);
+
+      var y = d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(medalCount, function (mc) {
+            return mc.count;
+          }),
+        ])
+        .range([innerHeight, 0]);
+
+      var xAxis = d3.axisBottom(x);
+
+      chart2
+        .append("g")
+        .attr("class", "x-axis")
+        .attr("transform", "translate(0," + innerHeight + ")")
+        .call(xAxis);
+
+      var yAxis = d3.axisLeft(y).ticks(5);
+
+      chart2.append("g").attr("class", "y-axis").call(yAxis);
+
+      chart2
+        .selectAll(".bar")
+        .data(medalCount)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", function (mc) {
+          return x(mc.type);
         })
-      )
-      .range([0, innerWidth - 350])
-      .padding(0.2);
+        .attr("y", function (mc) {
+          return y(mc.count);
+        })
+        .attr("width", x.bandwidth())
+        .attr("height", function (mc) {
+          return innerHeight - y(mc.count);
+        })
+        .attr("fill", "darkblue")
+        .attr("stroke", "none");
 
-    var y = d3
-      .scaleLinear()
-      .domain([
-        0,
-        d3.max(medalCount, function (mc) {
-          return mc.count;
-        }),
-      ])
-      .range([innerHeight, 0]);
+      chart2
+        .append("text")
+        .attr("class", "x-axis-label")
+        .attr("x", (innerWidth - 350) / 2)
+        .attr("y", innerHeight + 30)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
+        .style("font-size", 12)
+        .text("Medal Rank");
 
-    var xAxis = d3.axisBottom(x);
+      chart2
+        .append("text")
+        .attr("class", "y-axis-label")
+        .attr("x", -30)
+        .attr("y", innerHeight / 2)
+        .attr("transform", "rotate(-90,-30," + innerHeight / 2 + ")")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "baseline")
+        .style("font-size", 12)
+        .text("Number of Awarded Medals");
 
-    chart2
-      .append("g")
-      .attr("class", "x-axis")
-      .attr("transform", "translate(0," + innerHeight + ")")
-      .call(xAxis);
-
-    var yAxis = d3.axisLeft(y).ticks(5);
-
-    chart2.append("g").attr("class", "y-axis").call(yAxis);
-
-    chart2
-      .selectAll(".bar")
-      .data(medalCount)
-      .enter()
-      .append("rect")
-      .attr("class", "bar")
-      .attr("x", function (mc) {
-        return x(mc.type);
-      })
-      .attr("y", function (mc) {
-        return y(mc.count);
-      })
-      .attr("width", x.bandwidth())
-      .attr("height", function (mc) {
-        return innerHeight - y(mc.count);
-      })
-      .attr("fill", "darkblue")
-      .attr("stroke", "none");
-
-    chart2
-      .append("text")
-      .attr("class", "x-axis-label")
-      .attr("x", (innerWidth - 350) / 2)
-      .attr("y", innerHeight + 30)
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "hanging")
-      .style("font-size", 12)
-      .text("Medal Rank");
-
-    chart2
-      .append("text")
-      .attr("class", "y-axis-label")
-      .attr("x", -30)
-      .attr("y", innerHeight / 2)
-      .attr("transform", "rotate(-90,-30," + innerHeight / 2 + ")")
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "baseline")
-      .style("font-size", 12)
-      .text("Number of Awarded Medals");
-
-    chart2
-      .append("text")
-      .attr("class", "title")
-      .attr("x", (innerWidth - 350) / 2)
-      .attr("y", -20)
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "baseline")
-      .style("font-size", 16)
-      .text("Total Medals Awarded to " + d.properties.name + " 1976 - 2008");
+      chart2
+        .append("text")
+        .attr("class", "title")
+        .attr("x", (innerWidth - 350) / 2)
+        .attr("y", -20)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "baseline")
+        .style("font-size", 16)
+        .text("Total Medals Awarded to " + d.properties.name + " 1976 - 2008");
+    } else {
+      chart2
+        .append("text")
+        .attr("class", "title")
+        .attr("x", (innerWidth - 350) / 2)
+        .attr("y", 50)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "baseline")
+        .style("font-size", 16)
+        .text(d.properties.name + " was not awarded a medal between 1976 and 2008");
+    }
   }
 
   function clearContainer(id) {
