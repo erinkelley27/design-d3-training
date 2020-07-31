@@ -1,5 +1,5 @@
 function buildChart(id) {
-  var width = 700;
+  var width = 750;
   var height = 400;
 
   var margin = {
@@ -127,7 +127,100 @@ function buildChart(id) {
       })
       .on("mouseout", function (d) {
         tooltip.transition().duration(100).style("opacity", 0);
+      })
+      .on("click", function (d) {
+        drawMedalsChart(d);
       });
+  }
+
+  function drawMedalsChart(d) {
+    var g2 = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    var medalTypes = Object.keys(d.properties.medals);
+    var medalValues = Object.values(d.properties.medals);
+    var medalCount = medalTypes.map((t, i) => {
+      medal = {
+        type: t,
+        count: +medalValues[i],
+      };
+      return medal;
+    });
+
+    var x = d3
+      .scaleBand()
+      .domain(
+        medalCount.map(function (mc) {
+          return mc.type;
+        })
+      )
+      .range([0, innerWidth])
+      .padding(0.2);
+
+    var y = d3
+      .scaleLinear()
+      .domain([
+        0,
+        d3.max(medalCount, function (mc) {
+          return mc.count;
+        }),
+      ])
+      .range([innerHeight, 0]);
+
+    var xAxis = d3.axisBottom(x);
+
+    g2.append("g")
+      .attr("class", "x-axis")
+      .attr("transform", "translate(0," + innerHeight + ")")
+      .call(xAxis);
+
+    var yAxis = d3.axisLeft(y).ticks(5);
+
+    g2.append("g").attr("class", "y-axis").call(yAxis);
+
+    g.selectAll(".bar")
+      .data(medalCount)
+      .enter()
+      .append("rect")
+      .attr("class", "bar")
+      .attr("x", function (mc) {
+        return x(mc.type);
+      })
+      .attr("y", function (mc) {
+        return y(mc.count);
+      })
+      .attr("width", x.bandwidth())
+      .attr("height", function (mc) {
+        return innerHeight - y(mc.count);
+      })
+      .attr("fill", "black")
+      .attr("stroke", "none");
+
+    g.append("text")
+      .attr("class", "x-axis-label")
+      .attr("x", innerWidth / 2)
+      .attr("y", innerHeight + 30)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "hanging")
+      .text("Medal Rank");
+
+    g.append("text")
+      .attr("class", "y-axis-label")
+      .attr("x", -30)
+      .attr("y", innerHeight / 2)
+      .attr("transform", "rotate(-90,-30," + innerHeight / 2 + ")")
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "baseline")
+      .text("Number of Awarded Medals");
+
+    // title
+    g.append("text")
+      .attr("class", "title")
+      .attr("x", innerWidth / 2)
+      .attr("y", -20)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "baseline")
+      .style("font-size", 24)
+      .text("Total Medals Awarded to " + d.properties.name + " 1976 - 2008");
   }
 }
 
