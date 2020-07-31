@@ -129,6 +129,7 @@ function buildChart(id) {
         tooltip.transition().duration(100).style("opacity", 0);
       })
       .on("click", function (d) {
+        clearContainer("total-medals");
         drawMedalsChart(d);
       });
   }
@@ -233,6 +234,13 @@ function buildChart(id) {
       .attr("dominant-baseline", "baseline")
       .style("font-size", 16)
       .text("Total Medals Awarded to " + d.properties.name + " 1976 - 2008");
+  }
+
+  function clearContainer(id) {
+    const container = document.getElementById(id);
+    while (container.firstChild) {
+      container.removeChild(container.lastChild);
+    }
   }
 }
 
