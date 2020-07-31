@@ -1,6 +1,6 @@
 function buildChart(id) {
   var width = 750;
-  var height = 400;
+  var height = 300;
 
   var margin = {
     top: 50,
@@ -134,7 +134,13 @@ function buildChart(id) {
   }
 
   function drawMedalsChart(d) {
-    var g2 = svg.append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    var chart2 = d3
+      .select("#total-medals")
+      .append("svg")
+      .attr("height", height)
+      .attr("width", width - 350)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
     var medalTypes = Object.keys(d.properties.medals);
     var medalValues = Object.values(d.properties.medals);
@@ -153,7 +159,7 @@ function buildChart(id) {
           return mc.type;
         })
       )
-      .range([0, innerWidth])
+      .range([0, innerWidth - 350])
       .padding(0.2);
 
     var y = d3
@@ -168,16 +174,18 @@ function buildChart(id) {
 
     var xAxis = d3.axisBottom(x);
 
-    g2.append("g")
+    chart2
+      .append("g")
       .attr("class", "x-axis")
       .attr("transform", "translate(0," + innerHeight + ")")
       .call(xAxis);
 
     var yAxis = d3.axisLeft(y).ticks(5);
 
-    g2.append("g").attr("class", "y-axis").call(yAxis);
+    chart2.append("g").attr("class", "y-axis").call(yAxis);
 
-    g.selectAll(".bar")
+    chart2
+      .selectAll(".bar")
       .data(medalCount)
       .enter()
       .append("rect")
@@ -192,36 +200,40 @@ function buildChart(id) {
       .attr("height", function (mc) {
         return innerHeight - y(mc.count);
       })
-      .attr("fill", "black")
+      .attr("fill", "darkblue")
       .attr("stroke", "none");
 
-    g.append("text")
+    chart2
+      .append("text")
       .attr("class", "x-axis-label")
-      .attr("x", innerWidth / 2)
+      .attr("x", (innerWidth - 350) / 2)
       .attr("y", innerHeight + 30)
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "hanging")
+      .style("font-size", 12)
       .text("Medal Rank");
 
-    g.append("text")
+    chart2
+      .append("text")
       .attr("class", "y-axis-label")
       .attr("x", -30)
       .attr("y", innerHeight / 2)
       .attr("transform", "rotate(-90,-30," + innerHeight / 2 + ")")
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "baseline")
+      .style("font-size", 12)
       .text("Number of Awarded Medals");
 
-    // title
-    g.append("text")
+    chart2
+      .append("text")
       .attr("class", "title")
-      .attr("x", innerWidth / 2)
+      .attr("x", (innerWidth - 350) / 2)
       .attr("y", -20)
       .attr("text-anchor", "middle")
       .attr("dominant-baseline", "baseline")
-      .style("font-size", 24)
+      .style("font-size", 16)
       .text("Total Medals Awarded to " + d.properties.name + " 1976 - 2008");
   }
 }
 
-buildChart("#chart-container");
+buildChart("#map-container");
