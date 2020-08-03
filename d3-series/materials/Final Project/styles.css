@@ -1,18 +1,17 @@
 .charts1 {
   display: flex;
-  justify-content: flex-start;
-}
-/* 
-#map-container {
-  border: solid blue;
+  justify-content: space-between;
+  margin: 25px auto;
 }
 
-#total-medals {
-  border: solid red;
-} */
+.charts2 {
+  display: flex;
+  justify-content: center;
+  margin: 25px auto;
+}
 
-#medals-over-time {
-  border: solid gold;
+.charts2-child {
+  width: 750px;
 }
 
 h1 {

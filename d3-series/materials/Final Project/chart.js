@@ -180,6 +180,7 @@ function buildChart(id) {
       })
       .on("click", function (d) {
         clearContainer("total-medals");
+        clearContainer("medals-over-time");
         drawMedalsChart(d);
         drawYearsChart(d, medalsPerYear);
       });
@@ -304,6 +305,9 @@ function buildChart(id) {
     var yearChartHeight = 500;
     var yearChartWidth = 900;
 
+    var yearInnerHeight = height - margin.top - margin.bottom;
+    var yearInnerWidth = width - margin.left - margin.right;
+
     var chart3 = d3
       .select("#medals-over-time")
       .append("svg")
@@ -339,9 +343,8 @@ function buildChart(id) {
             return yc.year;
           })
         )
-        .range([0, innerWidth])
+        .range([0, yearInnerWidth])
         .padding(0.5);
-      console.log(x.domain(), x.range());
 
       var y = d3
         .scaleLinear()
@@ -351,15 +354,14 @@ function buildChart(id) {
             return yc.count.Gold + yc.count.Silver + yc.count.Bronze;
           }),
         ])
-        .range([innerHeight, 0]);
-      console.log(y.domain(), y.range());
+        .range([yearInnerHeight, 0]);
 
       var xAxis = d3.axisBottom(x);
 
       chart3
         .append("g")
         .attr("class", "x-axis")
-        .attr("transform", "translate(0," + innerHeight + ")")
+        .attr("transform", "translate(0," + yearInnerHeight + ")")
         .call(xAxis);
 
       var yAxis = d3.axisLeft(y).ticks(10);
@@ -383,7 +385,7 @@ function buildChart(id) {
         .attr("width", x.bandwidth())
         .attr("height", function (yc) {
           let total = yc.count.Gold + yc.count.Silver + yc.count.Bronze;
-          return innerHeight - y(total);
+          return yearInnerHeight - y(total);
         })
         .attr("fill", "darkblue")
         .attr("stroke", "none");
@@ -391,8 +393,8 @@ function buildChart(id) {
       chart3
         .append("text")
         .attr("class", "x-axis-label")
-        .attr("x", (innerWidth - 350) / 2)
-        .attr("y", innerHeight + 30)
+        .attr("x", yearInnerWidth / 2)
+        .attr("y", yearInnerHeight + 30)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "hanging")
         .style("font-size", 12)
@@ -402,8 +404,8 @@ function buildChart(id) {
         .append("text")
         .attr("class", "y-axis-label")
         .attr("x", -30)
-        .attr("y", innerHeight / 2)
-        .attr("transform", "rotate(-90,-30," + innerHeight / 2 + ")")
+        .attr("y", yearInnerHeight / 2)
+        .attr("transform", "rotate(-90,-30," + yearInnerHeight / 2 + ")")
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "baseline")
         .style("font-size", 12)
@@ -412,7 +414,7 @@ function buildChart(id) {
       chart3
         .append("text")
         .attr("class", "title")
-        .attr("x", (innerWidth - 350) / 2)
+        .attr("x", yearInnerWidth / 2)
         .attr("y", -20)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "baseline")
