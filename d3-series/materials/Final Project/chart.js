@@ -22,6 +22,8 @@ function buildChart(id) {
     d3.csv("./data/Olympic_Medals.csv", function (error, olympicMedals) {
       handleError(error, "failed to read olympic data");
       var countries = prepCountryMedals(olympicMedals);
+      var medalsPerYear = prepCountryYears(olympicMedals);
+      console.log(medalsPerYear);
       drawMap(geojson, countries);
     });
   });
@@ -59,8 +61,55 @@ function buildChart(id) {
     }
   }
 
+  function prepCountryYears(data) {
+    console.log(data);
+    let countries = [];
+    data.forEach((d) => {
+      const country = {
+        code: d["Country_Code"],
+        name: d.Country,
+        years: {},
+      };
+      const filteredCountries = countries.filter((c) => {
+        return c.code === country.code;
+      });
+      if (filteredCountries.length === 0) {
+        countries.push(country);
+      }
+    });
+    prepYears(data, countries);
+    return countries;
+  }
+
+  function prepYears(data, countries) {
+    countries.forEach((country) => {
+      data.forEach((d) => {
+        if (!country.years[d["Year"]]) {
+          country.years[d["Year"]] = {};
+        }
+      });
+    });
+    prepMedalsPerYear(data, countries);
+    return countries;
+  }
+
+  function prepMedalsPerYear(data, countries) {
+    countries.forEach((country) => {
+      data.forEach((d) => {
+        if (country.name === d["Country"]) {
+          if (!country.years[d["Year"]][d["Medal"]]) {
+            country.years[d["Year"]][d["Medal"]] = 1;
+          } else {
+            country.years[d["Year"]][d["Medal"]]++;
+          }
+        }
+      });
+    });
+    return countries;
+  }
+
   function drawMap(geojson, countries) {
-    console.log(geojson, countries);
+    // console.log(geojson, countries);
     geojson.features.forEach((f) => {
       var country = countries[f.id];
       if (country) {
