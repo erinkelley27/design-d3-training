@@ -23,7 +23,6 @@ function buildChart(id) {
       handleError(error, "failed to read olympic data");
       var countries = prepCountryMedals(olympicMedals);
       var medalsPerYear = prepCountryYears(olympicMedals);
-      console.log(medalsPerYear);
       drawMap(geojson, countries, medalsPerYear);
     });
   });
@@ -62,7 +61,6 @@ function buildChart(id) {
   }
 
   function prepCountryYears(data) {
-    console.log(data);
     let countries = [];
     data.forEach((d) => {
       const country = {
@@ -105,7 +103,6 @@ function buildChart(id) {
         }
       });
     });
-    console.log(countries);
     return countries;
   }
 
@@ -379,7 +376,6 @@ function buildChart(id) {
         })
         .attr("y", function (yc) {
           let total = +yc.count.Gold + +yc.count.Silver + +yc.count.Bronze;
-          console.log(total);
           return y(total);
         })
         .attr("width", x.bandwidth())
