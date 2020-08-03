@@ -85,7 +85,11 @@ function buildChart(id) {
     countries.forEach((country) => {
       data.forEach((d) => {
         if (!country.years[d["Year"]]) {
-          country.years[d["Year"]] = {};
+          country.years[d["Year"]] = {
+            Gold: 0,
+            Silver: 0,
+            Bronze: 0,
+          };
         }
       });
     });
@@ -97,11 +101,7 @@ function buildChart(id) {
     countries.forEach((country) => {
       data.forEach((d) => {
         if (country.name === d["Country"]) {
-          if (!country.years[d["Year"]][d["Medal"]]) {
-            country.years[d["Year"]][d["Medal"]] = 1;
-          } else {
-            country.years[d["Year"]][d["Medal"]]++;
-          }
+          country.years[d["Year"]][d["Medal"]]++;
         }
       });
     });
