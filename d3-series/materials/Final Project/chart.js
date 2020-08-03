@@ -24,7 +24,7 @@ function buildChart(id) {
       var countries = prepCountryMedals(olympicMedals);
       var medalsPerYear = prepCountryYears(olympicMedals);
       console.log(medalsPerYear);
-      drawMap(geojson, countries);
+      drawMap(geojson, countries, medalsPerYear);
     });
   });
 
@@ -105,10 +105,11 @@ function buildChart(id) {
         }
       });
     });
+    console.log(countries);
     return countries;
   }
 
-  function drawMap(geojson, countries) {
+  function drawMap(geojson, countries, medalsPerYear) {
     // console.log(geojson, countries);
     geojson.features.forEach((f) => {
       var country = countries[f.id];
@@ -180,6 +181,7 @@ function buildChart(id) {
       .on("click", function (d) {
         clearContainer("total-medals");
         drawMedalsChart(d);
+        drawYearsChart(d, medalsPerYear);
       });
   }
 
@@ -295,6 +297,127 @@ function buildChart(id) {
         .attr("dominant-baseline", "baseline")
         .style("font-size", 16)
         .text(d.properties.name + " was not awarded a medal between 1976 and 2008");
+    }
+  }
+
+  function drawYearsChart(d, medalsPerYear) {
+    var yearChartHeight = 500;
+    var yearChartWidth = 900;
+
+    var chart3 = d3
+      .select("#medals-over-time")
+      .append("svg")
+      .attr("height", yearChartHeight)
+      .attr("width", yearChartWidth)
+      .append("g")
+      .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+    if (d.properties.medals) {
+      const timeData = medalsPerYear.filter((mpy) => {
+        return mpy.code === d.id;
+      });
+
+      var years = Object.keys(timeData[0].years);
+      years.pop();
+
+      var yearValues = Object.values(timeData[0].years);
+      yearValues.pop();
+
+      var yearCount = years.map((y, i) => {
+        year = {
+          year: y,
+          count: yearValues[i],
+        };
+        return year;
+      });
+      console.log(yearCount);
+
+      var x = d3
+        .scaleBand()
+        .domain(
+          yearCount.map((yc) => {
+            return yc.year;
+          })
+        )
+        .range([0, innerWidth])
+        .padding(0.5);
+      console.log(x.domain(), x.range());
+
+      var y = d3
+        .scaleLinear()
+        .domain([
+          0,
+          d3.max(yearCount, function (yc) {
+            return yc.count.Gold + yc.count.Silver + yc.count.Bronze;
+          }),
+        ])
+        .range([innerHeight, 0]);
+      console.log(y.domain(), y.range());
+
+      var xAxis = d3.axisBottom(x);
+
+      chart3
+        .append("g")
+        .attr("class", "x-axis")
+        .attr("transform", "translate(0," + innerHeight + ")")
+        .call(xAxis);
+
+      var yAxis = d3.axisLeft(y).ticks(10);
+
+      chart3.append("g").attr("class", "y-axis").call(yAxis);
+
+      chart3
+        .selectAll(".bar")
+        .data(yearCount)
+        .enter()
+        .append("rect")
+        .attr("class", "bar")
+        .attr("x", function (yc) {
+          return x(yc.year);
+        })
+        .attr("y", function (yc) {
+          let total = +yc.count.Gold + +yc.count.Silver + +yc.count.Bronze;
+          console.log(total);
+          return y(total);
+        })
+        .attr("width", x.bandwidth())
+        .attr("height", function (yc) {
+          let total = yc.count.Gold + yc.count.Silver + yc.count.Bronze;
+          return innerHeight - y(total);
+        })
+        .attr("fill", "darkblue")
+        .attr("stroke", "none");
+
+      chart3
+        .append("text")
+        .attr("class", "x-axis-label")
+        .attr("x", (innerWidth - 350) / 2)
+        .attr("y", innerHeight + 30)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "hanging")
+        .style("font-size", 12)
+        .text("Year");
+
+      chart3
+        .append("text")
+        .attr("class", "y-axis-label")
+        .attr("x", -30)
+        .attr("y", innerHeight / 2)
+        .attr("transform", "rotate(-90,-30," + innerHeight / 2 + ")")
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "baseline")
+        .style("font-size", 12)
+        .text("Number of Awarded Medals");
+
+      chart3
+        .append("text")
+        .attr("class", "title")
+        .attr("x", (innerWidth - 350) / 2)
+        .attr("y", -20)
+        .attr("text-anchor", "middle")
+        .attr("dominant-baseline", "baseline")
+        .style("font-size", 16)
+        .text("Total Medals Awarded to " + d.properties.name + " per year");
     }
   }
 
