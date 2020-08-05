@@ -256,6 +256,23 @@ function buildChart(id) {
         .attr("stroke", "none");
 
       chart2
+        .selectAll(".text")
+        .data(medalCount)
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("x", function (mc) {
+          return x(mc.type) + 25;
+        })
+        .attr("y", function (mc) {
+          return y(mc.count) + 25;
+        })
+        .text(function (mc) {
+          return mc.count;
+        })
+        .attr("fill", "white");
+
+      chart2
         .append("text")
         .attr("class", "x-axis-label")
         .attr("x", (innerWidth - 350) / 2)
@@ -331,7 +348,6 @@ function buildChart(id) {
         };
         return year;
       });
-      console.log(yearCount);
 
       var x = d3
         .scaleBand()
@@ -365,26 +381,40 @@ function buildChart(id) {
 
       chart3.append("g").attr("class", "y-axis").call(yAxis);
 
-      chart3
-        .selectAll(".bar")
-        .data(yearCount)
-        .enter()
-        .append("rect")
-        .attr("class", "bar")
-        .attr("x", function (yc) {
+      var line = d3
+        .line()
+        .x(function (yc) {
           return x(yc.year);
         })
-        .attr("y", function (yc) {
+        .y(function (yc) {
+          let total = +yc.count.Gold + +yc.count.Silver + +yc.count.Bronze;
+          return y(total);
+        });
+
+      chart3
+        .append("path")
+        .datum(yearCount)
+        .attr("fill", "none")
+        .attr("stroke", "darkblue")
+        .attr("stroke-width", 1.5)
+        .attr("d", line);
+
+      chart3
+        .selectAll(".medal-count-point")
+        .data(yearCount)
+        .enter()
+        .append("circle")
+        .attr("class", ".medal-count-point")
+        .attr("fill", "darkblue")
+        .attr("stroke", "none")
+        .attr("cx", function (yc) {
+          return x(yc.year);
+        })
+        .attr("cy", function (yc) {
           let total = +yc.count.Gold + +yc.count.Silver + +yc.count.Bronze;
           return y(total);
         })
-        .attr("width", x.bandwidth())
-        .attr("height", function (yc) {
-          let total = yc.count.Gold + yc.count.Silver + yc.count.Bronze;
-          return yearInnerHeight - y(total);
-        })
-        .attr("fill", "darkblue")
-        .attr("stroke", "none");
+        .attr("r", 3);
 
       chart3
         .append("text")
