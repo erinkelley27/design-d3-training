@@ -4,6 +4,16 @@
   margin: 25px auto;
 }
 
+.map-container {
+  margin: 0 auto;
+}
+
+.legend {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+}
+
 .charts2 {
   display: flex;
   justify-content: center;

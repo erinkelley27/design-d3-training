@@ -107,6 +107,8 @@ function buildChart(id) {
   }
 
   function drawMap(geojson, countries, medalsPerYear) {
+    appendLegend("#legend");
+
     geojson.features.forEach((f) => {
       var country = countries[f.id];
       if (country) {
@@ -355,8 +357,7 @@ function buildChart(id) {
             return yc.year;
           })
         )
-        .range([0, yearInnerWidth])
-        .padding(0.5);
+        .range([0, yearInnerWidth]);
 
       var y = d3
         .scaleLinear()
@@ -468,6 +469,64 @@ function buildChart(id) {
     }
   }
 
+  function appendLegend(id) {
+    var legendWidth = 350;
+    var legendHeight = 50;
+
+    var key = d3.select(id).append("svg").attr("width", legendWidth).attr("height", legendHeight);
+
+    var legend = key
+      .append("defs")
+      .append("svg:linearGradient")
+      .attr("id", "gradient")
+      .attr("x1", "0%")
+      .attr("y1", "100%")
+      .attr("x2", "100%")
+      .attr("y2", "100%")
+      .attr("spreadMethod", "pad");
+
+    legend.append("stop").attr("offset", "0%").attr("stop-color", "darkblue").attr("stop-opacity", 0.25);
+
+    legend.append("stop").attr("offset", "33%").attr("stop-color", "darkblue").attr("stop-opacity", 0.5);
+
+    legend.append("stop").attr("offset", "66%").attr("stop-color", "darkblue").attr("stop-opacity", 0.75);
+
+    legend.append("stop").attr("offset", "100%").attr("stop-color", "darkblue").attr("stop-opacity", 1);
+
+    key
+      .append("rect")
+      .attr("width", legendWidth)
+      .attr("height", legendHeight - 30)
+      .style("fill", "url(#gradient)")
+      .attr("transform", "translate(0,10)");
+
+    var y = d3.scaleLinear().range([350, 0]).domain([1992, 20]);
+
+    var yAxis = d3.axisBottom().scale(y).ticks(10);
+
+    key
+      .append("g")
+      .attr("class", "y axis")
+      .attr("transform", "translate(0,30)")
+      .call(yAxis)
+      .append("text")
+      .attr("transform", "rotate(-90)")
+      .attr("y", 0)
+      .attr("dy", ".71em")
+      .style("text-anchor", "end")
+      .text("axis title");
+
+    key
+      .append("text")
+      .attr("class", "title")
+      .attr("x", legendWidth / 2)
+      .attr("y", -20)
+      .attr("text-anchor", "middle")
+      .attr("dominant-baseline", "baseline")
+      .style("font-size", 12)
+      .text("Total Medals Awarded");
+  }
+
   function clearContainer(id) {
     const container = document.getElementById(id);
     while (container.firstChild) {
@@ -476,4 +535,4 @@ function buildChart(id) {
   }
 }
 
-buildChart("#map-container");
+buildChart("#map");
