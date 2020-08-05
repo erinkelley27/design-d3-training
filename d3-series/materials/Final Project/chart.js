@@ -515,16 +515,6 @@ function buildChart(id) {
       .attr("dy", ".71em")
       .style("text-anchor", "end")
       .text("axis title");
-
-    key
-      .append("text")
-      .attr("class", "title")
-      .attr("x", legendWidth / 2)
-      .attr("y", -20)
-      .attr("text-anchor", "middle")
-      .attr("dominant-baseline", "baseline")
-      .style("font-size", 12)
-      .text("Total Medals Awarded");
   }
 
   function clearContainer(id) {
