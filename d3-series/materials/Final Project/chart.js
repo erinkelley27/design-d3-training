@@ -107,7 +107,6 @@ function buildChart(id) {
   }
 
   function drawMap(geojson, countries, medalsPerYear) {
-    // console.log(geojson, countries);
     geojson.features.forEach((f) => {
       var country = countries[f.id];
       if (country) {
@@ -417,6 +416,26 @@ function buildChart(id) {
         .attr("r", 3);
 
       chart3
+        .selectAll(".text")
+        .data(yearCount)
+        .enter()
+        .append("text")
+        .attr("class", "label")
+        .attr("x", function (yc) {
+          return x(yc.year) - 8;
+        })
+        .attr("y", function (yc) {
+          let total = +yc.count.Gold + +yc.count.Silver + +yc.count.Bronze;
+          return y(total) - 8;
+        })
+        .text(function (yc) {
+          let total = +yc.count.Gold + +yc.count.Silver + +yc.count.Bronze;
+          return total;
+        })
+        .attr("fill", "black")
+        .attr("font-size", 12);
+
+      chart3
         .append("text")
         .attr("class", "x-axis-label")
         .attr("x", yearInnerWidth / 2)
@@ -441,7 +460,7 @@ function buildChart(id) {
         .append("text")
         .attr("class", "title")
         .attr("x", yearInnerWidth / 2)
-        .attr("y", -20)
+        .attr("y", -30)
         .attr("text-anchor", "middle")
         .attr("dominant-baseline", "baseline")
         .style("font-size", 16)
