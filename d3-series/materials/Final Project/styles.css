@@ -1,11 +1,7 @@
 .charts1 {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   margin: 25px auto;
-}
-
-.map-container {
-  margin: 0 auto;
 }
 
 .legend {
