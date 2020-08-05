@@ -342,18 +342,22 @@ function buildChart(id) {
       var yearValues = Object.values(timeData[0].years);
       yearValues.pop();
 
+      var parseTime = d3.timeParse("%Y");
+
       var yearCount = years.map((y, i) => {
         year = {
-          year: y,
+          year: parseTime((+y).toString()),
           count: yearValues[i],
         };
         return year;
       });
 
+      console.log(yearCount);
+
       var x = d3
-        .scaleBand()
+        .scaleTime()
         .domain(
-          yearCount.map((yc) => {
+          d3.extent(yearCount, function (yc) {
             return yc.year;
           })
         )
@@ -369,7 +373,7 @@ function buildChart(id) {
         ])
         .range([yearInnerHeight, 0]);
 
-      var xAxis = d3.axisBottom(x);
+      var xAxis = d3.axisBottom(x).ticks(d3.timeYear.every(4));
 
       chart3
         .append("g")
